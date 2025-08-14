@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Suggestions Demo - Flint Property Portal</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-title {
+            text-align: center;
+            color: var(--flint-purple);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        
+        .demo-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .demo-description {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .search-demo {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-list h5 {
+            color: var(--flint-purple);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        
+        .test-queries {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .test-query {
+            background: rgba(139, 69, 255, 0.1);
+            color: var(--flint-purple);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(139, 69, 255, 0.2);
+        }
+        
+        .test-query:hover {
+            background: var(--flint-purple);
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">🔍 Enhanced Search Suggestions Demo</h1>
+        
+        <!-- Main Search Demo -->
+        <div class="demo-section">
+            <div class="demo-label">Main Search with Enhanced Suggestions</div>
+            <div class="demo-description">
+                Type in the search box below to see the enhanced suggestions with property types, prices, and better responsive design.
+            </div>
+            
+            <div class="search-demo">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Try typing 'Arthur', 'Northcote', or 'House'..." id="demoSearchInput" autocomplete="off">
+                    </div>
+                    <div class="search-suggestions" id="demoSearchSuggestions"></div>
+                </div>
+            </div>
+            
+            <div class="test-queries">
+                <span style="color: var(--text-gray); font-weight: 500; margin-right: 10px;">Try these:</span>
+                <span class="test-query" onclick="testSearch('Arthur')">Arthur</span>
+                <span class="test-query" onclick="testSearch('Northcote')">Northcote</span>
+                <span class="test-query" onclick="testSearch('House')">House</span>
+                <span class="test-query" onclick="testSearch('Smith')">Smith</span>
+                <span class="test-query" onclick="testSearch('xyz')">No results</span>
+            </div>
+        </div>
+        
+        <!-- Advanced Search Demo -->
+        <div class="demo-section">
+            <div class="demo-label">Advanced Search Suggestions</div>
+            <div class="demo-description">
+                Fill in the form below and see enhanced suggestions for advanced search.
+            </div>
+            
+            <form id="demoAdvancedForm" class="mb-3">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Street No.</label>
+                        <input type="text" class="form-control" placeholder="e.g., 24" id="demoStreetNo">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Street Name</label>
+                        <input type="text" class="form-control" placeholder="e.g., Arthur" id="demoStreetName">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Suburb</label>
+                        <input type="text" class="form-control" placeholder="e.g., Woody Point" id="demoSuburb">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3" style="background: var(--flint-purple); border: none;">Search Properties</button>
+            </form>
+            
+            <div class="search-suggestions" id="demoAdvancedSuggestions" style="position: relative; top: 0;"></div>
+        </div>
+        
+        <!-- Features List -->
+        <div class="feature-list">
+            <h5>✨ Enhanced Features</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li><strong>Responsive Design:</strong> Works perfectly on all devices</li>
+                        <li><strong>Loading States:</strong> Shows loading animation</li>
+                        <li><strong>Property Details:</strong> Shows type, price, bedrooms</li>
+                        <li><strong>Smooth Animations:</strong> Slide effects and hover states</li>
+                        <li><strong>Better UX:</strong> Click feedback and visual cues</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li><strong>Smart Filtering:</strong> Search by address, suburb, type</li>
+                        <li><strong>Result Limits:</strong> Shows top results with "view all"</li>
+                        <li><strong>No Results State:</strong> Helpful message when nothing found</li>
+                        <li><strong>Touch Friendly:</strong> Optimized for mobile touch</li>
+                        <li><strong>Keyboard Support:</strong> Enter key navigation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="property-api-mysql-client.js"></script>
+    
+    <script>
+        $(document).ready(async function() {
+            // Initialize API and load properties
+            const api = new PropertyAPIMySQL();
+            let properties = [];
+
+            try {
+                const apiProperties = await api.getAllProperties();
+                properties = apiProperties.map(prop => ({
+                    address: prop.address,
+                    suburb: `${prop.suburb} ${prop.state} ${prop.postcode}`,
+                    type: prop.type,
+                    price: prop.price,
+                    bedrooms: prop.bedrooms,
+                    bathrooms: prop.bathrooms,
+                    id: prop.id
+                }));
+                console.log('Demo: Loaded properties from API:', properties.length);
+            } catch (error) {
+                console.warn('Demo: API failed, using fallback data');
+                // Fallback demo data
+                properties = [
+                    { id: 1, address: "24 Arthur Street", suburb: "Woody Point QLD 4019", type: "House", price: 850000, bedrooms: 4, bathrooms: 2 },
+                    { id: 2, address: "15 Smith Street", suburb: "Northcote VIC 3070", type: "Apartment", price: 650000, bedrooms: 2, bathrooms: 1 },
+                    { id: 3, address: "89 Main Road", suburb: "Northcote VIC 3070", type: "Townhouse", price: 750000, bedrooms: 3, bathrooms: 2 },
+                    { id: 4, address: "45 Arthur Avenue", suburb: "Clarinda VIC 3169", type: "House", price: 920000, bedrooms: 4, bathrooms: 3 },
+                    { id: 5, address: "12 Ocean View", suburb: "Woody Point QLD 4019", type: "Apartment", price: 580000, bedrooms: 2, bathrooms: 1 }
+                ];
+            }
+
+            // Demo search functionality
+            $('#demoSearchInput').on('input', function() {
+                const query = $(this).val().trim().toLowerCase();
+                if (query.length >= 2) {
+                    showDemoSuggestions(query, '#demoSearchSuggestions');
+                } else {
+                    $('#demoSearchSuggestions').hide();
+                }
+            });
+
+            // Demo advanced search
+            $('#demoAdvancedForm').on('submit', function(e) {
+                e.preventDefault();
+                performDemoAdvancedSearch();
+            });
+
+            // Hide suggestions when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.search-demo, .demo-section').length) {
+                    $('.search-suggestions').hide();
+                }
+            });
+
+            function showDemoSuggestions(query, targetElement) {
+                const $suggestions = $(targetElement);
+                
+                // Show loading
+                $suggestions.html(`
+                    <div class="suggestion-loading">
+                        <i class="bi bi-search"></i> Searching properties...
+                    </div>
+                `).show();
+
+                setTimeout(() => {
+                    const filteredProperties = properties.filter(property => 
+                        property.address.toLowerCase().includes(query) ||
+                        property.suburb.toLowerCase().includes(query) ||
+                        (property.type && property.type.toLowerCase().includes(query))
+                    );
+
+                    if (filteredProperties.length > 0) {
+                        let suggestionsHtml = '';
+                        const limitedProperties = filteredProperties.slice(0, 5);
+                        
+                        limitedProperties.forEach(property => {
+                            const propertyType = property.type || 'House';
+                            const propertyPrice = property.price ? `$${parseInt(property.price).toLocaleString()}` : 'Contact for price';
+                            const bedroomInfo = property.bedrooms ? `${property.bedrooms} bed` : '';
+                            const bathroomInfo = property.bathrooms ? `${property.bathrooms} bath` : '';
+                            const roomInfo = bedroomInfo && bathroomInfo ? `${bedroomInfo}, ${bathroomInfo}` : (bedroomInfo || bathroomInfo);
+                            
+                            suggestionsHtml += `
+                                <div class="suggestion-item" data-id="${property.id}">
+                                    <i class="bi bi-geo-alt suggestion-icon"></i>
+                                    <div class="suggestion-text">
+                                        <div class="suggestion-main">${property.address}</div>
+                                        <div class="suggestion-sub">${property.suburb}${roomInfo ? ' • ' + roomInfo : ''}</div>
+                                    </div>
+                                    <span class="suggestion-badge">${propertyType}</span>
+                                    <div class="suggestion-price">${propertyPrice}</div>
+                                </div>
+                            `;
+                        });
+
+                        if (filteredProperties.length > 5) {
+                            suggestionsHtml += `
+                                <div class="suggestion-item suggestion-view-all">
+                                    <i class="bi bi-list-ul suggestion-icon"></i>
+                                    <div class="suggestion-text">
+                                        <div class="suggestion-main">View all ${filteredProperties.length} results</div>
+                                        <div class="suggestion-sub">See complete search results</div>
+                                    </div>
+                                    <i class="bi bi-arrow-right" style="color: var(--flint-purple); margin-left: auto;"></i>
+                                </div>
+                            `;
+                        }
+
+                        $suggestions.html(suggestionsHtml).show();
+
+                        // Click handlers
+                        $suggestions.find('.suggestion-item').on('click', function() {
+                            if ($(this).hasClass('suggestion-view-all')) {
+                                alert(`Would show all ${filteredProperties.length} results`);
+                                return;
+                            }
+                            const propertyId = $(this).data('id');
+                            $(this).css('background', 'var(--flint-purple)').find('.suggestion-text').css('color', 'white');
+                            alert(`Would navigate to property details for ID: ${propertyId}`);
+                        });
+
+                    } else {
+                        $suggestions.html(`
+                            <div class="suggestion-no-results">
+                                <i class="bi bi-search"></i>
+                                <div class="suggestion-main" style="color: var(--text-gray); margin-top: 8px;">No properties found</div>
+                                <div class="suggestion-sub">Try searching for a different suburb or address</div>
+                            </div>
+                        `).show();
+                    }
+                }, 300);
+            }
+
+            function performDemoAdvancedSearch() {
+                const streetNo = $('#demoStreetNo').val().trim();
+                const streetName = $('#demoStreetName').val().trim();
+                const suburb = $('#demoSuburb').val().trim();
+
+                if (!streetNo && !streetName && !suburb) {
+                    alert('Please fill in at least one field');
+                    return;
+                }
+
+                const query = [streetNo, streetName, suburb].filter(x => x).join(' ').toLowerCase();
+                showDemoSuggestions(query, '#demoAdvancedSuggestions');
+            }
+
+            // Global function for test buttons
+            window.testSearch = function(query) {
+                $('#demoSearchInput').val(query).trigger('input');
+            };
+        });
+    </script>
+</body>
+</html>

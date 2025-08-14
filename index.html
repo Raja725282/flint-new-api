@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flint - Find Out How Much Your Property Is Worth</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a href="#" class="flint-logo">
+                <img src="logo.png" alt="Flint Logo" class="logo-img">
+            </a>
+            <div class="cotality-badge">
+                <img src="CotalityEarth.png" alt="CotalityEarth" class="cotality-img">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Hero Section -->
+    <main class="hero-section">
+        <!-- Purple geometric shape -->
+        <div class="purple-shape"></div>
+        
+        <!-- Hero content -->
+        <div class="hero-content fade-in">
+            <h1 class="hero-title">Find Out How Much Your Property Is Worth</h1>
+            <p class="hero-subtitle">If you're looking for a new place to call home, we will help you know more about it.</p>
+            
+            <!-- Search container -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search by suburb, address or property" id="mainSearchInput" autocomplete="off">
+                </div>
+                <!-- Search Suggestions -->
+                <div class="search-suggestions" id="searchSuggestions">
+                    <!-- Suggestions will be populated here -->
+                </div>
+            </div>
+            
+            <button class="advanced-btn" id="advancedSearchBtn">ADVANCED SEARCH</button>
+            
+            <!-- Advanced Search Form (Hidden by default) -->
+            <div class="advanced-search-form" id="advancedSearchForm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="h4 mb-0" style="color: var(--flint-purple);">Find Out How Much Your Property Is Worth</h2>
+                    <button class="clear-all-btn" id="clearAllBtn">Clear All</button>
+                </div>
+                <p class="text-muted mb-4">If you're looking for a new place to call home, we will help you know more about it.</p>
+                
+                <form id="propertySearchForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Unit No.</label>
+                            <input type="text" class="form-control" placeholder="Enter Unit No." id="unitNo">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Street No.</label>
+                            <input type="text" class="form-control" placeholder="Enter Street No." id="streetNo">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Lot No.</label>
+                            <input type="text" class="form-control" placeholder="Enter Lot No." id="lotNo">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Street Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Street Name" id="streetName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Street Type</label>
+                            <input type="text" class="form-control" placeholder="Enter Street Type" id="streetType">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Suburb, State & Postcode</label>
+                        <input type="text" class="form-control" placeholder="Enter Suburb, State & Postcode" id="suburbStatePostcode">
+                    </div>
+                </form>
+                <!-- Advanced Search Suggestions -->
+                <div class="search-suggestions" id="advancedSearchSuggestions" style="margin-top:10px;"></div>
+                </form>
+                
+                <a href="#" class="back-to-search-btn" id="backToSearchBtn">Back to Search</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="property-api-mysql-client.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

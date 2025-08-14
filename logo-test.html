@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Update Test - All Pages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .page-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #8B45FF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        .page-link:hover {
+            background: #7635e6;
+            color: white;
+        }
+        .logo-preview {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .logo-img {
+            height: 40px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎨 Logo Update Test - All Pages</h1>
+        <p>Testing logo.png और CotalityEarth.png implementation across all pages</p>
+        
+        <h2>📁 Logo Files Preview:</h2>
+        <div class="logo-preview">
+            <div>
+                <strong>Flint Logo:</strong><br>
+                <img src="logo.png" alt="Flint Logo" class="logo-img">
+            </div>
+            <div>
+                <strong>CotalityEarth Logo:</strong><br>
+                <img src="CotalityEarth.png" alt="CotalityEarth" class="logo-img">
+            </div>
+        </div>
+        
+        <h2>🔗 Test All Pages:</h2>
+        <div>
+            <a href="index.html" class="page-link" target="_blank">
+                🏠 Homepage (index.html)
+            </a>
+            <a href="property-details.html" class="page-link" target="_blank">
+                🏘️ Property Details
+            </a>
+            <a href="property-report.html" class="page-link" target="_blank">
+                📊 Property Report
+            </a>
+        </div>
+        
+        <h2>✅ Updates Applied:</h2>
+        <ul>
+            <li><strong>index.html:</strong> Header navbar - Left: logo.png, Right: CotalityEarth.png</li>
+            <li><strong>property-details.html:</strong> Header navbar - Left: logo.png, Right: CotalityEarth.png</li>
+            <li><strong>property-report.html:</strong> Header section और Footer - Both logos added</li>
+        </ul>
+        
+        <h2>📱 Responsive Features:</h2>
+        <ul>
+            <li>Desktop: Full size logos (35-40px height)</li>
+            <li>Tablet: Medium size logos (30-35px height)</li>
+            <li>Mobile: Compact size logos (25-30px height)</li>
+            <li>Proper aspect ratio maintenance</li>
+            <li>Object-fit contain for clean scaling</li>
+        </ul>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #e3f2fd; border-radius: 5px;">
+            <strong>🎯 Test Instructions:</strong><br>
+            1. Click each page link above<br>
+            2. Check header section for proper logo display<br>
+            3. Test responsive design by resizing browser<br>
+            4. Verify logos are not distorted or pixelated<br>
+            5. Check mobile view for proper scaling
+        </div>
+    </div>
+</body>
+</html>

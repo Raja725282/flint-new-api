@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUSTRALIA/24 Arthur Street Woody Point QLD 4019 - Flint</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        .property-header {
+            background: #fff;
+            padding: 1.2rem 2.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .property-address {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--flint-purple);
+            word-break: break-word;
+        }
+        .nav-tabs {
+            border-bottom: 2px solid #e5e7eb;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        .nav-tabs .nav-item {
+            flex-shrink: 0;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: #7B2D8E;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border-radius: 0;
+            transition: background 0.2s;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+        .nav-tabs .nav-link.active {
+            color: #7B2D8E;
+            border-bottom: 3px solid #7B2D8E;
+            background: #f9f6fd;
+        }
+        .property-image {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .map-container {
+            height: 260px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        .map-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .map-controls button {
+            border: none;
+            background: transparent;
+            padding: 8px 12px;
+            color: #7B2D8E;
+            font-size: 0.85rem;
+            min-width: auto;
+        }
+        .map-controls button.active {
+            color: #9B4DAE;
+            font-weight: 600;
+        }
+        .report-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(123,45,142,0.08);
+            margin-top: 2rem;
+            height: fit-content;
+        }
+        .report-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #7B2D8E;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        /* Enhanced Mobile Responsiveness */
+        
+        /* Header Responsive Improvements */
+        .navbar {
+            padding: 0.75rem 1rem;
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .flint-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--flint-purple);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .cotality-badge {
+            background: #f3f4f6;
+            color: #6b7280;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .property-header {
+            background: #fff;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .property-address {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--flint-purple);
+            word-break: break-word;
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 1199px) {
+            .navbar {
+                padding: 0.65rem 0.85rem;
+            }
+            .property-header {
+                padding: 1rem 0;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .navbar {
+                padding: 0.6rem 0.75rem;
+            }
+            .flint-logo {
+                font-size: 1.3rem;
+            }
+            .cotality-badge {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.6rem;
+            }
+            .property-header {
+                padding: 0.9rem 0;
+            }
+            .property-address {
+                font-size: 1.05rem;
+            }
+            .property-image, .map-container { 
+                height: 200px; 
+            }
+            .report-card { 
+                padding: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            .report-title {
+                font-size: 1.3rem;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+            .map-controls {
+                top: 5px;
+                right: 5px;
+            }
+            .map-controls button {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .navbar {
+                padding: 0.5rem 0.75rem;
+            }
+            .flint-logo {
+                font-size: 1.2rem;
+            }
+            .cotality-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .property-header { 
+                padding: 0.8rem 0; 
+            }
+            .property-address { 
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+            .property-image, .map-container { 
+                height: 180px; 
+            }
+            .report-card { 
+                padding: 1.2rem;
+                margin-top: 1rem;
+            }
+            .report-title {
+                font-size: 1.2rem;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            .card {
+                border-radius: 8px;
+            }
+            .map-controls {
+                position: static;
+                margin-bottom: 0.5rem;
+                justify-content: center;
+            }
+            .map-container {
+                margin-top: 0.5rem;
+            }
+            /* Stack header elements on very small screens */
+            .d-flex.align-items-center {
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 575px) {
+            .navbar {
+                padding: 0.4rem 0.5rem;
+            }
+            .flint-logo {
+                font-size: 1.1rem;
+            }
+            .cotality-badge {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.4rem;
+            }
+            .property-header { 
+                padding: 0.6rem 0; 
+            }
+            .property-address { 
+                font-size: 0.9rem;
+                line-height: 1.3;
+            }
+            .property-image, .map-container { 
+                height: 160px; 
+            }
+            .report-card { 
+                padding: 1rem;
+                margin-top: 0.75rem;
+                border-radius: 12px;
+            }
+            .report-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .container {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .navbar {
+                padding: 0.5rem 0.75rem;
+            }
+            .flint-logo {
+                font-size: 1.2rem !important;
+            }
+            .cotality-badge {
+                font-size: 0.7rem !important;
+                padding: 0.2rem 0.5rem !important;
+            }
+            .map-controls button {
+                padding: 4px 6px;
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .navbar {
+                padding: 0.3rem 0.4rem;
+            }
+            .flint-logo {
+                font-size: 1rem !important;
+            }
+            .cotality-badge {
+                font-size: 0.6rem !important;
+                padding: 0.1rem 0.35rem !important;
+            }
+            .property-header { 
+                padding: 0.5rem 0; 
+            }
+            .property-address { 
+                font-size: 0.85rem;
+            }
+            .property-image, .map-container { 
+                height: 140px; 
+            }
+            .report-card { 
+                padding: 0.8rem;
+                margin-top: 0.5rem;
+            }
+            .report-title {
+                font-size: 1rem;
+            }
+            .nav-tabs .nav-link {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            .container {
+                padding-left: 0.25rem;
+                padding-right: 0.25rem;
+            }
+        }
+        
+        .report-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .feature-item::before {
+            content: "✓";
+            color: var(--flint-purple);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .get-report-btn {
+            background: var(--flint-purple);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            min-height: 48px; /* Better touch target */
+        }
+        
+        .get-report-btn:hover {
+            background: var(--flint-light-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(123, 45, 142, 0.3);
+        }
+        
+        .sample-report-link {
+            color: var(--flint-purple);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px; /* Better touch target */
+        }
+        
+        .sample-report-link:hover {
+            color: var(--flint-light-purple);
+        }
+        
+        .sample-report-link::after {
+            content: "↗";
+            margin-left: 0.3rem;
+        }
+        
+        /* Form Elements Responsive Styles */
+        .form-control {
+            min-height: 44px; /* Better touch target for mobile */
+            font-size: 16px; /* Prevents zoom on iOS */
+        }
+        
+        .btn {
+            min-height: 44px; /* Better touch target */
+        }
+        
+        /* Enhanced Modal Responsive Design */
+        .modal-dialog {
+            margin: 1rem auto;
+            max-width: 90vw;
+            display: flex !important;
+            align-items: center !important;
+            min-height: calc(100% - 2rem);
+        }
+        
+        .modal-dialog.modal-lg {
+            max-width: min(800px, 90vw);
+        }
+        
+        /* Ensure modal is always centered */
+        .modal.fade .modal-dialog {
+            transform: translate(0, -50px);
+        }
+        
+        .modal.show .modal-dialog {
+            transform: translate(0, 0);
+        }
+        
+        .modal-content {
+            width: 100%;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            padding: 1.5rem 1.5rem 0.5rem;
+            border-bottom: none;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            line-height: 1.3;
+        }
+        
+        .modal-body {
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-dialog {
+                margin: 0.5rem auto;
+                max-width: 95vw;
+                min-height: calc(100% - 1rem);
+            }
+            
+            .modal-header {
+                padding: 1rem 1rem 0.5rem;
+            }
+            
+            .modal-body {
+                padding: 0 1rem 1rem;
+            }
+            
+            .modal-title {
+                font-size: 1.1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .modal-dialog {
+                margin: 0.25rem auto;
+                max-width: 98vw;
+                min-height: calc(100% - 0.5rem);
+            }
+            
+            .modal-header {
+                padding: 0.75rem 0.75rem 0.25rem;
+            }
+            
+            .modal-body {
+                padding: 0 0.75rem 0.75rem;
+            }
+            
+            .modal-title {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
+            
+            .form-control {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 0.75rem;
+            }
+            
+            .input-group-text {
+                padding: 0.75rem;
+                font-size: 16px;
+            }
+            
+            .form-label {
+                font-size: 0.9rem;
+                margin-bottom: 0.25rem;
+            }
+            
+            .form-check-label {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+            
+            .btn.get-report-btn {
+                width: 100%;
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .modal-dialog {
+                margin: 0.125rem auto;
+                max-width: 99vw;
+                min-height: calc(100% - 0.25rem);
+            }
+            
+            .modal-header {
+                padding: 0.5rem 0.5rem 0.25rem;
+            }
+            
+            .modal-body {
+                padding: 0 0.5rem 0.5rem;
+            }
+            
+            .modal-title {
+                font-size: 0.95rem;
+            }
+            
+            .form-control,
+            .input-group-text {
+                padding: 0.625rem;
+                font-size: 15px;
+            }
+        }
+        
+        /* Form enhancements for better mobile experience */
+        .form-control:focus {
+            border-color: var(--flint-purple);
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 255, 0.25);
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--flint-purple);
+            border-color: var(--flint-purple);
+        }
+        
+        .form-check-input:focus {
+            border-color: var(--flint-purple);
+            box-shadow: 0 0 0 0.2rem rgba(139, 69, 255, 0.25);
+        }
+        
+        /* Modal backdrop and positioning fixes */
+        .modal.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-backdrop.show {
+            opacity: 0.5;
+        }
+        
+        /* Ensure modal doesn't interfere with page layout */
+        body.modal-open {
+            overflow: hidden;
+            padding-right: 0 !important;
+        }
+        
+        /* Fix for iOS modal scrolling */
+        @supports (-webkit-touch-callout: none) {
+            .modal-dialog {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                margin: 0;
+            }
+        }
+            
+            .feature-item {
+                font-size: 0.85rem;
+            }
+            
+            .report-features {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin: 1rem 0;
+            }
+            
+            .get-report-btn {
+                padding: 14px 20px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        /* Additional Mobile Optimizations */
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+        
+        .info-value {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        
+        /* Improve readability on mobile */
+        .alert {
+            font-size: 0.9rem;
+            padding: 0.75rem;
+        }
+        
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.35em 0.6em;
+        }
+        
+        /* Better spacing for small screens */
+        .mb-3 {
+            margin-bottom: 0.75rem !important;
+        }
+        
+        @media (max-width: 576px) {
+            .mb-3 {
+                margin-bottom: 0.5rem !important;
+            }
+            
+            .info-label {
+                font-size: 0.8rem;
+            }
+            
+            .info-value {
+                font-size: 0.9rem;
+            }
+            
+            .alert {
+                font-size: 0.85rem;
+                padding: 0.6rem;
+            }
+            
+            .badge {
+                font-size: 0.7rem;
+                padding: 0.3em 0.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a href="index.html" class="flint-logo">
+                <img src="logo.png" alt="Flint Logo" class="logo-img">
+            </a>
+            <div class="cotality-badge">
+                <img src="CotalityEarth.png" alt="CotalityEarth" class="cotality-img">
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Property Header -->
+    <div class="property-header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-search me-2" style="color: var(--flint-purple);"></i>
+                <span class="property-address">AUSTRALIA/24 Arthur Street Woody Point QLD 4019</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation Tabs -->
+    <div class="container">
+        <ul class="nav nav-tabs" id="propertyTabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#photos">Photos</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#location">Location</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#details">Property Details</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#value">Estimated Value</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#history">Property History</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#insights">Insights</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#comparables">Comparables</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#schools">Local Schools</button>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- Tab Content -->
+    <div class="container mt-4">
+        <div class="tab-content">
+            <!-- Photos Tab -->
+            <div class="tab-pane fade show active" id="photos">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12 col-lg-8 order-2 order-lg-1">
+                        <div class="card p-2 p-md-3">
+                            <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                                 alt="Property Image" class="property-image">
+                            <div class="d-flex justify-content-between align-items-center mt-2 mt-md-3">
+                                <div class="d-flex gap-2">
+                                    <span class="badge bg-light text-dark">Street View</span>
+                                </div>
+                                <span class="text-muted small">© Cotality</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 order-1 order-lg-2">
+                        <!-- Property Report Card -->
+                        <div class="report-card">
+                            <h3 class="report-title">Get your free Digital Property Report</h3>
+                            <p class="text-muted mb-3">AUSTRALIA/24 Arthur Street Woody Point QLD 4019</p>
+                            
+                            <h6 class="mb-3" style="color: var(--text-dark);">Digital Property Report Includes:</h6>
+                            
+                            <div class="report-features">
+                                <div class="feature-item">Property details</div>
+                                <div class="feature-item">Property photos and floor plan</div>
+                                <div class="feature-item">Estimated value</div>
+                                <div class="feature-item">Estimated rent</div>
+                                <div class="feature-item">Property history</div>
+                                <div class="feature-item">Demographic trends</div>
+                                <div class="feature-item">Suburb insights</div>
+                                <div class="feature-item">Local schools details</div>
+                            </div>
+                            
+                            <a href="#" class="sample-report-link mb-3 d-block">View Sample Report</a>
+                            
+                            <p class="text-muted small mb-3">We're here to help you with your property research</p>
+                            
+                            <button class="get-report-btn" onclick="openReportModal()">Get Free Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location Tab -->
+            <div class="tab-pane fade" id="location">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-2 p-md-3">
+                            <div class="position-relative">
+                                <!-- Map controls for mobile - moved outside/above map -->
+                                <div class="map-controls d-md-none mb-2">
+                                    <button class="map-btn active" data-view="map">Map</button>
+                                    <button class="map-btn" data-view="satellite">Satellite</button>
+                                    <button class="map-btn" data-view="street">Street</button>
+                                </div>
+                                <div id="map" class="map-container"></div>
+                                <!-- Map controls for desktop - overlay on map -->
+                                <div class="map-controls d-none d-md-flex">
+                                    <button class="map-btn active" data-view="map">Map</button>
+                                    <button class="map-btn" data-view="satellite">Satellite</button>
+                                    <button class="map-btn" data-view="street">Street</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other tabs content -->
+            <div class="tab-pane fade" id="details">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-3 p-md-4">
+                            <h5 class="section-title mb-3 mb-md-4">Property Information</h5>
+                            <div class="row g-3">
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="mb-3">
+                                        <span class="info-label">Property Type</span><br>
+                                        <span class="info-value">Unit</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="info-label">Bedrooms</span><br>
+                                        <span class="info-value">2</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="info-label">Bathrooms</span><br>
+                                        <span class="info-value">2</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="mb-3">
+                                        <span class="info-label">Car Spaces</span><br>
+                                        <span class="info-value">1</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="info-label">Floor Area</span><br>
+                                        <span class="info-value">102m²</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="info-label">Council Area</span><br>
+                                        <span class="info-value">Moreton Bay</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="value">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-3 p-md-4">
+                            <h5 class="section-title mb-3 mb-md-4">Estimated Value</h5>
+                            <div class="alert alert-info">
+                                Estimated value content will be displayed here.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="history">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-3 p-md-4">
+                            <h5 class="section-title mb-3 mb-md-4">Property History</h5>
+                            <div class="alert alert-info">
+                                Property history content will be displayed here.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="insights">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-3 p-md-4">
+                            <h5 class="section-title mb-3 mb-md-4">Market Insights</h5>
+                            <div class="alert alert-info">
+                                Market insights content will be displayed here.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="comparables">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-3 p-md-4">
+                            <h5 class="section-title mb-3 mb-md-4">Comparable Properties</h5>
+                            <div class="alert alert-info">
+                                Comparable properties content will be displayed here.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="schools">
+                <div class="row g-3 g-lg-4">
+                    <div class="col-12">
+                        <div class="card p-3 p-md-4">
+                            <h5 class="section-title mb-3 mb-md-4">Local Schools</h5>
+                            <div class="alert alert-info">
+                                Local schools content will be displayed here.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-2">
+                    <h5 class="modal-title" id="reportModalLabel" style="color: var(--flint-purple); font-weight: 700;">Get your free Digital Property Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3 p-md-4">
+                    <p class="text-muted mb-3 mb-md-4">AUSTRALIA/24 Arthur Street Woody Point QLD 4019</p>
+                    
+                    <form id="reportForm">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label fw-semibold">First name *</label>
+                                <input type="text" class="form-control" placeholder="Please enter your first name" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label fw-semibold">Last name *</label>
+                                <input type="text" class="form-control" placeholder="Please enter your last name" required>
+                            </div>
+                            <div class="col-12 col-md-8">
+                                <label class="form-label fw-semibold">Email address *</label>
+                                <input type="email" class="form-control" placeholder="Please enter your email address" required>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label fw-semibold">Mobile number *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+61</span>
+                                    <input type="tel" class="form-control" placeholder="Enter mobile number" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h6 class="mb-3 mt-4 fw-semibold" style="color: var(--text-dark);">Terms & Conditions</h6>
+                        
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                            <label class="form-check-label text-muted small" for="termsCheck">
+                                I have read and accept the <a href="#" class="text-decoration-none" style="color: var(--flint-purple);">IP Data Policy</a> and the <a href="#" class="text-decoration-none" style="color: var(--flint-purple);">Cotality (Australia) Terms & Conditions</a> and <a href="#" class="text-decoration-none" style="color: var(--flint-purple);">Privacy Policy</a>. I consent to Cotality providing my details to Flint Group who will use my information in accordance with its <a href="#" class="text-decoration-none" style="color: var(--flint-purple);">Flint Group Privacy Policy</a> and contact me about their products and services.
+                            </label>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn get-report-btn">Send Report</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body p-4 p-md-5">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: #28a745;"></i>
+                    </div>
+                    <h4 class="mb-3" style="color: var(--flint-purple);">Report Sent Successfully!</h4>
+                    <p class="text-muted mb-4">Your Digital Property Report has been sent to your email address. Please check your inbox.</p>
+                    <div class="d-grid">
+                        <button type="button" class="btn get-report-btn" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS for Map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="property-api-mysql-client.js"></script>
+    
+    <script>
+        let map;
+        let propertyData = null;
+        const api = new PropertyAPI();
+        
+        $(document).ready(async function() {
+            // Get property ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('id') || '1'; // Default to property 1
+            
+            try {
+                // Load property data from API
+                propertyData = await api.getPropertyById(propertyId);
+                updatePropertyDetails(propertyData);
+                console.log('Loaded property data:', propertyData);
+            } catch (error) {
+                console.error('Failed to load property data:', error);
+                // Use default property data if API fails
+                propertyData = {
+                    id: '1',
+                    address: '24 Arthur Street',
+                    suburb: 'Woody Point',
+                    state: 'QLD',
+                    postcode: '4019',
+                    type: 'Unit',
+                    bedrooms: 2,
+                    bathrooms: 1,
+                    parkingSpaces: 1,
+                    coordinates: { lat: -27.2708, lng: 153.1103 }
+                };
+                updatePropertyDetails(propertyData);
+            }
+            
+            // Initialize map after property data is loaded
+            initMap();
+            
+            // Map controls
+            $('.map-btn').on('click', function() {
+                $('.map-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                const view = $(this).data('view');
+                // Here you would switch map layers based on view
+                console.log('Switching to:', view);
+            });
+            
+            // Report form submission
+            $('#reportForm').on('submit', function(e) {
+                e.preventDefault();
+                // Hide report modal
+                $('#reportModal').modal('hide');
+                // Show success modal
+                setTimeout(() => {
+                    $('#successModal').modal('show');
+                }, 500);
+            });
+            // Redirect to property-report.html after closing success modal
+            $('#successModal').on('hidden.bs.modal', function () {
+                const propertyId = propertyData?.id || '1';
+                window.location.href = `property-report.html?id=${propertyId}`;
+            });
+        });
+        
+        function updatePropertyDetails(property) {
+            // Update page title and header
+            document.title = `${property.address} | Flint Property Search`;
+            
+            // Update the address in multiple places if they exist
+            const addressElements = $('.property-address, .property-title h1, [data-property="address"]');
+            addressElements.text(property.address);
+            
+            // Update suburb, state, postcode
+            const locationElements = $('.property-location, [data-property="location"]');
+            locationElements.text(`${property.suburb} ${property.state} ${property.postcode}`);
+            
+            // Update property type
+            const typeElements = $('.property-type, [data-property="type"]');
+            typeElements.text(property.type);
+            
+            // Update bedroom count
+            const bedroomElements = $('.bedroom-count, [data-property="bedrooms"]');
+            bedroomElements.text(property.bedrooms || 'N/A');
+            
+            // Update bathroom count
+            const bathroomElements = $('.bathroom-count, [data-property="bathrooms"]');
+            bathroomElements.text(property.bathrooms || 'N/A');
+            
+            // Update parking spaces
+            const parkingElements = $('.parking-count, [data-property="parking"]');
+            parkingElements.text(property.parkingSpaces || 'N/A');
+            
+            // Update price if available
+            if (property.price) {
+                const priceElements = $('.property-price, [data-property="price"]');
+                priceElements.text(typeof property.price === 'number' ? 
+                    `$${property.price.toLocaleString()}` : property.price);
+            }
+            
+            console.log('Updated property details for:', property.address);
+        }
+        
+        function openReportModal() {
+            const modal = new bootstrap.Modal(document.getElementById('reportModal'), {
+                keyboard: true,
+                backdrop: true,
+                focus: true
+            });
+            modal.show();
+            
+            // Ensure modal is centered on show
+            $('#reportModal').on('shown.bs.modal', function () {
+                const modalDialog = $(this).find('.modal-dialog');
+                modalDialog.css({
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'min-height': 'calc(100% - 1rem)'
+                });
+            });
+        }
+        
+        function initMap() {
+            // Use property coordinates if available, otherwise default coordinates
+            const lat = propertyData?.coordinates?.lat || -27.2631;
+            const lng = propertyData?.coordinates?.lng || 153.1097;
+            const address = propertyData ? `${propertyData.address}` : '24 Arthur Street';
+            const location = propertyData ? `${propertyData.suburb} ${propertyData.state} ${propertyData.postcode}` : 'Woody Point QLD 4019';
+            
+            // Initialize Leaflet map
+            map = L.map('map').setView([lat, lng], 15);
+            
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Add marker for the property
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(`${address}, ${location}`)
+                .openPopup();
+        }
+    </script>
+</body>
+</html>
